@@ -13,9 +13,10 @@ import com.example.PayMe.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;
+    static UserRepository userRepository;
 	
-	public User getUserByName(String userName) {
+	public User getUserByName(String userName)
+	{
 		return userRepository.getUserByName(userName);
 	}
 
@@ -32,7 +33,7 @@ public class UserService {
 	}
 	
 	
-	public User getConnectedUser() {
+	public static User getConnectedUser() {
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.getUserByName(userName);
 		return user;

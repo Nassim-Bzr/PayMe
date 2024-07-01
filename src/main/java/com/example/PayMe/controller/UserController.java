@@ -24,6 +24,8 @@ public class UserController {
 		model.addAttribute("listContact", user.getListContacts());
 		return "userProfil";
 	}
+
+
 	
 	
 	@PostMapping("/addContact")

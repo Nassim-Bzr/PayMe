@@ -23,6 +23,7 @@ public class SpringSecurityConfig {
 		return http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/").permitAll();
 			auth.requestMatchers("/admin").hasRole("ADMIN");
+			auth.requestMatchers("/darkadmin").hasRole("DARKADMIN");
 			auth.requestMatchers("/user").hasRole("USER");
 			auth.anyRequest().authenticated();
 		}).formLogin(Customizer.withDefaults()).build();
@@ -38,8 +39,14 @@ public class SpringSecurityConfig {
 				.username("admin")
 				.password(passwordEncoder().encode("admin"))
 				.roles("USER", "ADMIN").build();
-		return new InMemoryUserDetailsManager(user, admin);
+		UserDetails darkadmin = User.builder()
+				.username("darkadmin")
+				.password(passwordEncoder().encode("dkadmin"))
+				.roles("USER", "ADMIN", "DARKADMIN").build();
+		return new InMemoryUserDetailsManager(user, admin, darkadmin);
 	}
+
+
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
